@@ -144,7 +144,6 @@ public class RoomScheduler {
 			}
 		} catch (InputMismatchException e) {
 			System.out.println("Please enter only numeric values");
-			keyboard.nextLine(); // clears the buffer
 		}
 		return "";
 	}
