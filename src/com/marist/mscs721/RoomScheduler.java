@@ -163,9 +163,7 @@ public class RoomScheduler {
 	}
 
 	/**
-	 * method to display the rooms along with its capacity
-	 * 
-	 * @param roomList
+	 * method to display the rooms along with its capacity	
 	 */
 	protected static String listRooms(ArrayList<Room> roomList) {
 		String returnMsg = "";
@@ -186,11 +184,9 @@ public class RoomScheduler {
 	}
 
 	/**
-	 * method to schedule a room
-	 * 
-	 * @param roomList
+	 * method to schedule a room	
 	 */
-	@SuppressWarnings("resource")
+	
 	protected static String scheduleRoom(ArrayList<Room> roomList) {
 		try {
 			System.out.println("Schedule a room:");
@@ -247,21 +243,14 @@ public class RoomScheduler {
 	}
 
 	/**
-	 * Method to get the name of the room
-	 * 
-	 * @param roomList
-	 * @param name
-	 * @return
+	 * Method to get the name of the room	 
 	 */
 	protected static Room getRoomFromName(ArrayList<Room> roomList, String name) {
 		return roomList.get(findRoomIndex(roomList, name));
 	}
 
 	/**
-	 * to find the indexes for list of rooms
-	 * 
-	 * @param roomList
-	 * @param roomName
+	 * to find the indexes for list of rooms	
 	 */
 	protected static int findRoomIndex(ArrayList<Room> roomList, String roomName) {
 		int roomIndex = 0;
@@ -287,10 +276,7 @@ public class RoomScheduler {
 
 	/**
 	 * Method to export data like rooms, capacity and meetings array in json
-	 * format into a file
-	 * 
-	 * @param roomList
-	 * @return
+	 * format into a file	 
 	 */
 	protected static String exportData(ArrayList<Room> roomList) {
 
