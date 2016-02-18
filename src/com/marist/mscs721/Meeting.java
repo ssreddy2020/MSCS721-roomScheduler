@@ -26,7 +26,7 @@ public class Meeting {
 			setSubject(newSubject);
 		}
 	}
-
+	@Override
 	public String toString() {
 		// convert the start time and end time to string
 		return this.getStartTime().toString() + " ; " + this.getStopTime() + " ; " + getSubject();

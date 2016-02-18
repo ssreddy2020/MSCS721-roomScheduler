@@ -14,36 +14,44 @@ package com.marist.mscs721;
 /**
  * import required packages
  * */
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import java.text.SimpleDateFormat;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
- 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
 /**
  * This class demonstrates RoomScheduler Process
  */
 public class RoomScheduler {
+	private RoomScheduler(){
+		
+	}
 	protected static Scanner keyboard = new Scanner(System.in);
-
+	private static final Logger logger = Logger.getLogger("com.marist.mscs721.RoomScheduler");	
+//	String logFile = "c://logfile.log";
+//	FileHandler fh = new FileHandler(logFile);
 	/**
 	 * Entry point of the RoomScheduler program
 	 */
-	public static void main(String[] args) {
+	
+	public static void main(String[] args) {		
 		Boolean end = false;
 		ArrayList<Room> rooms = new ArrayList<Room>();
 
@@ -52,25 +60,28 @@ public class RoomScheduler {
 			switch (mainMenu()) {
 
 			case 1:
-				System.out.println(addRoom(rooms));
+				logger.info(addRoom(rooms));
 				break;
 			case 2:
-				System.out.println(removeRoom(rooms));
+				logger.info(removeRoom(rooms));
 				break;
 			case 3:
-				System.out.println(scheduleRoom(rooms));
+				logger.info(scheduleRoom(rooms));
 				break;
 			case 4:
-				System.out.println(listSchedule(rooms));
+				logger.info(listSchedule(rooms));
 				break;
 			case 5:
-				System.out.println(listRooms(rooms));
+				logger.info(listRooms(rooms));
 				break;
 			case 6:
-				System.out.println(exportData(rooms));
+				logger.info(exportData(rooms));
 				break;
 			case 7:
-				System.out.println(importData(rooms));
+				logger.info(importData(rooms));
+				break;
+			default: 
+				logger.info("Invalid selection");
 				break;
 			}
 
@@ -87,15 +98,14 @@ public class RoomScheduler {
 	protected static String listSchedule(ArrayList<Room> roomList) {
 		try {
 			String roomName = getRoomName();
-			System.out.println(roomName + " Schedule");
-			System.out.println("---------------------");
+			logger.info(roomName + " Schedule");
+			logger.info("---------------------");
 			// retrieve details related to meetings of a room
 			for (Meeting m : getRoomFromName(roomList, roomName).getMeetings()) {
-				System.out.println(m.toString());
+				logger.info(m.toString());
 			}
-		} catch (Exception e) {
-			System.out
-					.println("room doesn't exist/please enter a valid room name");
+		} catch (Exception e) {			
+			logger.log(Level.SEVERE,"",e);
 		}
 		return "";
 	}
@@ -142,8 +152,8 @@ public class RoomScheduler {
 			} else {
 				System.out.println("Name should not be empty");
 			}
-		} catch (InputMismatchException e) {
-			System.out.println("Please enter only numeric values");
+		} catch (InputMismatchException e) {		
+			logger.info("Please enter only numeric values");
 		}
 		return "";
 	}
@@ -152,12 +162,12 @@ public class RoomScheduler {
 	 * method to delete the existing room
 	 */
 	protected static String removeRoom(ArrayList<Room> roomList) {
-		try {
+		try {			
 			System.out.println("Remove a room:");
 			roomList.remove(findRoomIndex(roomList, getRoomName()));
 			return "Room removed successfully!";
-		} catch (Exception e) {
-			System.out.println("Please enter valid room name");
+		} catch (IndexOutOfBoundsException e) {		
+			logger.log(Level.INFO,"Please enter a valid room name",e);
 		}
 		return "";
 	}
@@ -177,8 +187,8 @@ public class RoomScheduler {
 
 			System.out.println("---------------------");
 			returnMsg = roomList.size() + " Room(s)";
-		} catch (Exception e) {
-			System.out.println("Exception Message" + e);
+		} catch (Exception e) {			
+			logger.log(null, "Error", e);
 		}
 		return returnMsg;
 	}
@@ -195,11 +205,6 @@ public class RoomScheduler {
 			// check whether room exists or not
 			for (Room room : roomList) {
 				if (room.getName().contains(name)) {
-					Date currdate = new Date();
-					SimpleDateFormat format = new SimpleDateFormat(
-							"yyyy-MM-dd hh:mm:ss");
-					String DateToStr = format.format(currdate);
-
 					System.out.println("Start Date? (yyyy-mm-dd):");
 					String startDate = keyboard.next();
 
@@ -238,7 +243,7 @@ public class RoomScheduler {
 
 		} catch (Exception e) {
 			System.out.println("Exception Message" + e);
-		}
+		}		
 		return "";
 	}
 
@@ -300,7 +305,7 @@ public class RoomScheduler {
 				file.flush();
 				file.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.log(Level.INFO,"Exception Message",e);
 			}
 			System.out.println("Data exported successfully");
 		}
@@ -338,15 +343,15 @@ public class RoomScheduler {
 			}
 			System.out.println("Data imported successfully");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Exception Message", e);
 		} finally {
 			try {
 				if (br != null)
 					br.close(); // close the buffered reader
-			} catch (IOException ex) {
-				ex.printStackTrace();
+			} catch (IOException e) {
+				logger.log(Level.INFO,"Exception Message", e);
 			}
 		}
 		return "";
-	}
+	}	
 }
