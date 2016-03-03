@@ -17,21 +17,22 @@ package com.marist.mscs721;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Properties;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
@@ -43,21 +44,17 @@ import org.json.simple.parser.ParseException;
  * This class demonstrates RoomScheduler Process
  */
 public class RoomScheduler {
-	private RoomScheduler() {
-
-	}
 
 	protected static Scanner keyboard = new Scanner(System.in);
 	private static final Logger logger = Logger
-			.getLogger("com.marist.mscs721.RoomScheduler");
+			.getLogger("RoomScheduler.class");
 
-	// String logFile = "c://logfile.log";
-	// FileHandler fh = new FileHandler(logFile);
 	/**
 	 * Entry point of the RoomScheduler program
 	 */
 
 	public static void main(String[] args) {
+		initializeLog();
 		Boolean end = false;
 		ArrayList<Room> rooms = new ArrayList<Room>();
 
@@ -95,6 +92,20 @@ public class RoomScheduler {
 
 	}
 
+	private static void initializeLog() {
+		Properties prop = new Properties();
+		try {
+			FileInputStream file = new FileInputStream(
+					"configuration/log4j.properties");
+			prop.load(file);
+			PropertyConfigurator.configure(prop);
+		} catch (FileNotFoundException ex) {
+			System.out.println("Not able to locate property file");
+		} catch (IOException ex) {
+			System.out.println("Error while reading the property file");
+		}
+	}
+
 	/**
 	 * method to display the scheduled room list
 	 * 
@@ -111,7 +122,8 @@ public class RoomScheduler {
 				logger.info(m.toString());
 			}
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "", e);
+			logger.error("Exception in List Schedule:");
+			logger.error(e);
 		}
 		return "";
 	}
@@ -191,8 +203,8 @@ public class RoomScheduler {
 			System.out.println("Remove a room:");
 			roomList.remove(findRoomIndex(roomList, getRoomName()));
 			return "Room removed successfully!";
-		} catch (IndexOutOfBoundsException e) {
-			logger.log(Level.INFO, "Please enter a valid room name", e);
+		} catch (IndexOutOfBoundsException e) {			
+			logger.error("Please enter a valid room name:", e);
 		}
 		return "";
 	}
@@ -232,7 +244,7 @@ public class RoomScheduler {
 				if (room.getName().contains(name)) {
 					System.out.println("Start Date? (yyyy-mm-dd):");
 					String startDate = keyboard.next();
-
+					// check whether start date and end date format is correct
 					boolean vStartDate = dateValidation(startDate);
 					if (vStartDate == true) {
 						System.out.println("Start Time? (hh:mm)");
@@ -282,9 +294,12 @@ public class RoomScheduler {
 		}
 		return "";
 	}
+
 	/**
 	 * this method is used to check date validation
-	 * @param in_Date : contains the value of start date and end date
+	 * 
+	 * @param in_Date
+	 *            : contains the value of start date and end date
 	 * @return : it will return boolean value
 	 */
 	protected static boolean dateValidation(String in_Date) {
@@ -316,7 +331,6 @@ public class RoomScheduler {
 			}
 			roomIndex++;
 		}
-
 		return roomIndex;
 	}
 
@@ -336,7 +350,6 @@ public class RoomScheduler {
 	 */
 	protected static String exportData(ArrayList<Room> roomList) {
 
-		System.out.println("In export method");
 		JSONObject json = new JSONObject();
 
 		for (Room room : roomList) {
@@ -350,7 +363,6 @@ public class RoomScheduler {
 			json.put("Meetings", meetings);
 
 			// write data to a file
-
 			File fileName = new File("src/File/result.json");
 			try (PrintWriter file = new PrintWriter(new BufferedWriter(
 					new FileWriter(fileName, true)))) {
@@ -358,10 +370,10 @@ public class RoomScheduler {
 				file.write("\n");
 				file.flush();
 				file.close();
-			} catch (IOException e) {
-				logger.log(Level.INFO, "Exception Message", e);
+			} catch (IOException e) {				
+				logger.error("Exception in export method:", e);
 			}
-			System.out.println("Data exported successfully");
+			logger.info("Data exported successfully");
 		}
 		return "";
 	}
@@ -395,15 +407,16 @@ public class RoomScheduler {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("Data imported successfully");
-		} catch (IOException e) {
-			logger.log(Level.WARNING, "Exception Message", e);
+			logger.info("Data imported successfully");
+		} catch (IOException e) {			
+			logger.error("Exception in import data:", e);
+
 		} finally {
 			try {
 				if (br != null)
 					br.close(); // close the buffered reader
-			} catch (IOException e) {
-				logger.log(Level.INFO, "Exception Message", e);
+			} catch (IOException e) {				
+				logger.error("Exception method in finally:", e);
 			}
 		}
 		return "";
