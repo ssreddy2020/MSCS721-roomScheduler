@@ -1,7 +1,5 @@
 package com.marist.mscs721;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +26,6 @@ public class RoomTest {
 	public void getRoom() {
 		String getRoomName = room.getName();		
 		Assert.assertEquals(getRoomName, "Hancock");
-	}
-	
+	}	
 	
 }

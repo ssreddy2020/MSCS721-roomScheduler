@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,9 +79,10 @@ public class RoomSchedulerTest {
 		Room curRoom = RoomScheduler.getRoomFromName(roomList, "delRoom");
 		Timestamp startDate = Timestamp.valueOf("2016-09-09 09:09:00.000");
 		Timestamp endDate = Timestamp.valueOf("2018-03-05 09:09:00.00");
-
+		
+		Assert.assertNotEquals(startDate,"2016-09-09 10:09:00.000");
 		Meeting meeting = new Meeting(startDate, endDate, "Software Testing");
-		curRoom.addMeeting(meeting);
+		curRoom.addMeeting(meeting);		
 	}
 
 	/**
@@ -110,10 +112,12 @@ public class RoomSchedulerTest {
 	 * this method is used to accept the user input
 	 */
 	@Test
-	public void testGetRoomName() {
-		String data = "LowellThomas";
-		Scanner sc = new Scanner(data);		
-		//Assert.assertEquals("LowellThomas", sc);
+	public void testGetRoomName() {		
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner("LowellThomas");	
+		String data = "Lowell Thomas";
+		boolean str = sc.equals(data);
+		Assert.assertEquals(false, str);
 	}
 
 	/**
