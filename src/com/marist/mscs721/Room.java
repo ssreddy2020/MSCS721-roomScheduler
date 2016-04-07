@@ -14,13 +14,17 @@ public class Room {
 	private String name;
 	private int capacity;
 	private ArrayList<Meeting> meetings;
+	private String building;
+	private String location;
 	
 	
-	// method to the set the values like roomname, capacity and meetings	 
-	public Room(String newName, int newCapacity) {
+	// method to the set the values like room name, capacity and meetings	 
+	public Room(String newName, int newCapacity, String newBuilding, String newLocation) {
 		setName(newName);
 		setCapacity(newCapacity);
 		setMeetings(new ArrayList<Meeting>());
+		setBuilding(newBuilding);
+		setLocation(newLocation);
 	}
 
 	// method to add meetings
@@ -57,4 +61,19 @@ public class Room {
 		this.meetings = meetings;
 	}
 	
+	public void setBuilding(String building){
+		this.building = building;
+	}
+	
+	public String getBuilding(){
+		return building; 
+	}
+	
+	public void setLocation(String location){
+		this.location = location;
+	}
+	
+	public String getLocation(){
+		return location;
+	}
 }

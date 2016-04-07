@@ -17,7 +17,7 @@ public class RoomTest {
 	 */
 	@Before
 	public void addRoom() {
-		room = new Room("Hancock", 45);
+		room = new Room("Hancock", 45, "LowellThomas" , "MaristCampus");
 	}
 	/**
 	 * This method will get the name of the room

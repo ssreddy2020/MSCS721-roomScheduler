@@ -29,12 +29,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.Spliterator;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.util.regex.Pattern;
-
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -120,6 +120,7 @@ public class RoomScheduler {
 			logger.info("---------------------");
 			// retrieve details related to meetings of a room
 			for (Meeting m : getRoomFromName(roomList, roomName).getMeetings()) {
+				// for (Meeting m : roomList) {
 				logger.info(m.toString());
 			}
 		} catch (Exception e) {
@@ -179,10 +180,28 @@ public class RoomScheduler {
 					if (name != null && !name.isEmpty()) {
 						System.out.println("Room capacity?");
 						int capacity = keyboard.nextInt();
-						Room newRoom = new Room(name, capacity);
-						roomList.add(newRoom); // add room to the list
-						return "Room '" + newRoom.getName()
-								+ "' added successfully!";
+						System.out.println("Building?");
+						String building = keyboard.next();
+						if (Pattern.matches("[a-zA-Z\\s]+", building)) {
+							if (building != null && !building.isEmpty()) {
+								System.out.println("Location?");
+								String location = keyboard.next();
+								if (Pattern.matches("[a-zA-Z]+", location)) {
+									Room newRoom = new Room(name, capacity,
+											building, location);
+									roomList.add(newRoom); // add room to the
+															// list
+									return "Room '" + newRoom.getName()
+											+ "' added successfully!";
+								} else {
+									System.out
+											.println("Please enter only alphabets");
+								}
+							}
+
+						} else {
+							System.out.println("Please enter only alphabets");
+						}
 					} else {
 						System.out.println("Name should not be empty");
 					}
@@ -204,7 +223,7 @@ public class RoomScheduler {
 			System.out.println("Remove a room:");
 			roomList.remove(findRoomIndex(roomList, getRoomName()));
 			return "Room removed successfully!";
-		} catch (IndexOutOfBoundsException e) {			
+		} catch (IndexOutOfBoundsException e) {
 			logger.error("Please enter a valid room name:", e);
 		}
 		return "";
@@ -235,23 +254,32 @@ public class RoomScheduler {
 	 * method to schedule a room
 	 */
 
+	@SuppressWarnings("resource")
 	protected static String scheduleRoom(ArrayList<Room> roomList) {
 		try {
+
 			System.out.println("Schedule a room:");
-			String name = getRoomName();
 
 			// check whether room exists or not
 			for (Room room : roomList) {
-				if (room.getName().contains(name)) {
-					System.out.println("Start Date? (yyyy-mm-dd):");
-					String startDate = keyboard.next();
-					// check whether start date and end date format is correct
-					boolean vStartDate = dateValidation(startDate);
-					if (vStartDate == true) {
-						System.out.println("Start Time? (hh:mm)");
-						String startTime = keyboard.next();
-						startTime = startTime + ":00";
 
+				System.out.println("Start Date? (yyyy-mm-dd):");
+				String startDate = keyboard.next();
+				// check whether start date and end date format is correct
+				boolean vStartDate = dateValidation(startDate);
+				if (vStartDate == true) {
+					System.out.println("Start Time? (hh:mm)");
+					String startTime = keyboard.next();
+					startTime = startTime + ":00";
+
+					String avSDate = startDate + " " + startTime + ".0";
+					System.out.println(avSDate);
+					// functionality to check the available rooms based on
+					// start date
+					availableRooms(roomList, avSDate);
+
+					String name = getRoomName();
+					if (room.getName().contains(name)) {
 						System.out.println("End Date? (yyyy-mm-dd):");
 						String endDate = keyboard.next();
 
@@ -371,10 +399,39 @@ public class RoomScheduler {
 				file.write("\n");
 				file.flush();
 				file.close();
-			} catch (IOException e) {				
+			} catch (IOException e) {
 				logger.error("Exception in export method:", e);
 			}
 			logger.info("Data exported successfully");
+		}
+		return "";
+	}
+
+	/**
+	 * this method is used to check the availability of rooms based on start
+	 * date and time
+	 * 
+	 * @param roomList
+	 *            : Contains the details of room
+	 * @param avDate
+	 *            : contains the start date
+	 * @return
+	 */
+	protected static String availableRooms(ArrayList<Room> roomList,
+			String avDate) {
+		System.out.println("--Available Rooms--");
+		for (Room room : roomList) {
+			ArrayList<Meeting> sDate = room.getMeetings();
+			String listString = "";
+
+			for (Meeting s : sDate) {
+				listString += s + "\t";
+			}
+			String[] spDate = listString.split(";");
+
+			if (spDate[0] == "" || spDate[0] == avDate) {
+				System.out.println(room.getName());
+			}
 		}
 		return "";
 	}
@@ -399,8 +456,11 @@ public class RoomScheduler {
 					JSONObject jsonObject = (JSONObject) obj;
 					String name = (String) jsonObject.get("RoomName");
 					long capacity = (long) jsonObject.get("Capacity");
+					String building = (String) jsonObject.get("Building");
+					String location = (String) jsonObject.get("Location");
 					// add the imported data to the roomList
-					Room room = new Room(name, (int) capacity);
+					Room room = new Room(name, (int) capacity, building,
+							location);
 					roomList.add(room);
 
 				} catch (ParseException e) {
@@ -409,14 +469,14 @@ public class RoomScheduler {
 				}
 			}
 			logger.info("Data imported successfully");
-		} catch (IOException e) {			
+		} catch (IOException e) {
 			logger.error("Exception in import data:", e);
 
 		} finally {
 			try {
 				if (br != null)
 					br.close(); // close the buffered reader
-			} catch (IOException e) {				
+			} catch (IOException e) {
 				logger.error("Exception method in finally:", e);
 			}
 		}

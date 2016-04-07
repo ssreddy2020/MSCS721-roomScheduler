@@ -12,8 +12,7 @@ import org.junit.Test;
 
 /**
  * 
- * @author ssreddy23
- * This class will demonstrate the room scheduler test
+ * @author ssreddy23 This class will demonstrate the room scheduler test
  *
  */
 
@@ -26,18 +25,18 @@ public class RoomSchedulerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		Room newRoom = new Room("delRoom", 50);
+		Room newRoom = new Room("delRoom", 50, "LowellThomas", "MaristCampus");
 		roomList.add(newRoom);
 		String addedRoom = newRoom.getName();
 		Assert.assertEquals(addedRoom, "delRoom");
 	}
 
 	/**
-	 *  This method is used to add a new room
+	 * This method is used to add a new room
 	 */
 	@Test
 	public void testAddRoom() {
-		Room newRoom = new Room("Donnelly", 50);
+		Room newRoom = new Room("Donnelly", 50, "Hancock", "MaristCampus");
 		roomList.add(newRoom);
 		String addedRoom = newRoom.getName();
 		Assert.assertEquals(addedRoom, "Donnelly");
@@ -63,7 +62,8 @@ public class RoomSchedulerTest {
 	}
 
 	/**
-	 * this method is used to check whether the date is in a specific format or not
+	 * this method is used to check whether the date is in a specific format or
+	 * not
 	 */
 	@Test
 	public void testDateValidation() {
@@ -75,14 +75,14 @@ public class RoomSchedulerTest {
 	 * this method is used to schedule the existing room
 	 */
 	@Test
-	public void testScheduleRoom() {	
+	public void testScheduleRoom() {
 		Room curRoom = RoomScheduler.getRoomFromName(roomList, "delRoom");
 		Timestamp startDate = Timestamp.valueOf("2016-09-09 09:09:00.000");
 		Timestamp endDate = Timestamp.valueOf("2018-03-05 09:09:00.00");
-		
-		Assert.assertNotEquals(startDate,"2016-09-09 10:09:00.000");
+
+		Assert.assertNotEquals(startDate, "2016-09-09 10:09:00.000");
 		Meeting meeting = new Meeting(startDate, endDate, "Software Testing");
-		curRoom.addMeeting(meeting);		
+		curRoom.addMeeting(meeting);
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class RoomSchedulerTest {
 	 */
 	@Test
 	public void testGetRoomFromName() {
-		Room newRoom = new Room("testROOM", 100);
+		Room newRoom = new Room("testROOM", 100, "LowellThomas", "MaristCampus");
 		roomList.add(newRoom);
 		String addedRoom = newRoom.getName();
 		Assert.assertEquals(addedRoom, "testROOM");
@@ -112,9 +112,9 @@ public class RoomSchedulerTest {
 	 * this method is used to accept the user input
 	 */
 	@Test
-	public void testGetRoomName() {		
+	public void testGetRoomName() {
 		@SuppressWarnings("resource")
-		Scanner sc = new Scanner("LowellThomas");	
+		Scanner sc = new Scanner("LowellThomas");
 		String data = "Lowell Thomas";
 		boolean str = sc.equals(data);
 		Assert.assertEquals(false, str);
