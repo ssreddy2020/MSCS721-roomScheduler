@@ -1,0 +1,12 @@
+{
+{room[{"Building": "building1","RoomName": "room1","Capacity": 10,"Meetings": [startTime: 2016-04-1 10:1 endTime: 2016-06-1 11:1 subject1 "]"Location": LowellThomas1} ] 
+{room[{"Building": "building2","RoomName": "room2","Capacity": 10,"Meetings": [startTime: 2016-04-2 10:2 endTime: 2016-06-2 11:2 subject2 "]"Location": LowellThomas2} ] 
+{room[{"Building": "building3","RoomName": "room3","Capacity": 10,"Meetings": [startTime: 2016-04-3 10:3 endTime: 2016-06-3 11:3 subject3 "]"Location": LowellThomas3} ] 
+{room[{"Building": "building4","RoomName": "room4","Capacity": 10,"Meetings": [startTime: 2016-04-4 10:4 endTime: 2016-06-4 11:4 subject4 "]"Location": LowellThomas4} ] 
+{room[{"Building": "building5","RoomName": "room5","Capacity": 10,"Meetings": [startTime: 2016-04-5 10:5 endTime: 2016-06-5 11:5 subject5 "]"Location": LowellThomas5} ] 
+{room[{"Building": "building6","RoomName": "room6","Capacity": 10,"Meetings": [startTime: 2016-04-6 10:6 endTime: 2016-06-6 11:6 subject6 "]"Location": LowellThomas6} ] 
+{room[{"Building": "building7","RoomName": "room7","Capacity": 10,"Meetings": [startTime: 2016-04-7 10:7 endTime: 2016-06-7 11:7 subject7 "]"Location": LowellThomas7} ] 
+{room[{"Building": "building8","RoomName": "room8","Capacity": 10,"Meetings": [startTime: 2016-04-8 10:8 endTime: 2016-06-8 11:8 subject8 "]"Location": LowellThomas8} ] 
+{room[{"Building": "building9","RoomName": "room9","Capacity": 10,"Meetings": [startTime: 2016-04-9 10:9 endTime: 2016-06-9 11:9 subject9 "]"Location": LowellThomas9} ] 
+{room[{"Building": "building10","RoomName": "room10","Capacity": 10,"Meetings": [startTime: 2016-04-10 10:10 endTime: 2016-06-10 11:10 subject10 "]"Location": LowellThomas10} ] 
+}
