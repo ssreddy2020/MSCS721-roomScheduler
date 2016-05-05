@@ -1,0 +1,92 @@
+
+*****************************************************
+Summary
+-------
+Generated at: 2016-05-04T21:27:56-04:00
+Notes: 0
+Binaries: 8
+Archives: 5
+Standards: 32
+
+Apache Licensed: 0
+Generated Documents: 0
+
+JavaDocs are generated and so license header is optional
+Generated files do not required license headers
+
+0 Unknown Licenses
+
+*******************************
+
+Unapproved licenses:
+
+
+*******************************
+
+Archives:
+
+ + jars/hamcrest-core-1.3.jar
+ 
+ + jars/json-simple-1.1.1.jar
+ 
+ + jars/junit-4.12.jar
+ 
+ + jars/log4j-1.2.17.jar
+ 
+ + jars/pitest-maven-1.1.9.jar
+ 
+*****************************************************
+  Files with Apache License headers will be marked AL
+  Binary files (which do not require AL headers) will be marked B
+  Compressed archives will be marked A
+  Notices, licenses etc will be marked N
+  B     bin/com/marist/mscs721/Meeting.class
+  B     bin/com/marist/mscs721/package-info.class
+  B     bin/com/marist/mscs721/Room.class
+  B     bin/com/marist/mscs721/RoomScheduler.class
+   doc/allclasses-frame.html
+   doc/allclasses-noframe.html
+   doc/com/marist/mscs721/class-use/Meeting.html
+   doc/com/marist/mscs721/class-use/Room.html
+   doc/com/marist/mscs721/class-use/RoomScheduler.html
+   doc/com/marist/mscs721/Meeting.html
+   doc/com/marist/mscs721/package-frame.html
+   doc/com/marist/mscs721/package-summary.html
+   doc/com/marist/mscs721/package-tree.html
+   doc/com/marist/mscs721/package-use.html
+   doc/com/marist/mscs721/Room.html
+   doc/com/marist/mscs721/RoomScheduler.html
+   doc/constant-values.html
+   doc/deprecated-list.html
+   doc/help-doc.html
+   doc/index-files/index-1.html
+   doc/index-files/index-2.html
+   doc/index-files/index-3.html
+   doc/index-files/index-4.html
+   doc/index-files/index-5.html
+   doc/index-files/index-6.html
+   doc/index-files/index-7.html
+   doc/index.html
+   doc/overview-tree.html
+  B     doc/resources/background.gif
+  B     doc/resources/tab.gif
+  B     doc/resources/titlebar.gif
+  B     doc/resources/titlebar_end.gif
+   doc/stylesheet.css
+  A     jars/hamcrest-core-1.3.jar
+  A     jars/json-simple-1.1.1.jar
+  A     jars/junit-4.12.jar
+  A     jars/log4j-1.2.17.jar
+  A     jars/pitest-maven-1.1.9.jar
+  Lab10 src/com/marist/mscs721/Meeting.java
+  Lab10 src/com/marist/mscs721/package-info.java
+  Lab10 src/com/marist/mscs721/Room.java
+  Lab10 src/com/marist/mscs721/RoomScheduler.java
+  Lab10 test/com/marist/mscs721/RoomSchedulerTest.java
+  Lab10 test/com/marist/mscs721/RoomTest.java
+  Lab10 test/com/marist/mscs721/TestSuite.java
+ 
+*****************************************************
+ Printing headers for files without AL header...
+ 
+ 
