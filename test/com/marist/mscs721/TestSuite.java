@@ -1,5 +1,10 @@
 package com.marist.mscs721;
 
+/**
+ * Sandeep Salla License
+ *
+ * Copyrights: Sandeep, 2016
+ */
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 import org.junit.runners.Suite;
