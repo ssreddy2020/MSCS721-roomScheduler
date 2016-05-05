@@ -37,6 +37,35 @@
 					</targetTests>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.rat</groupId>
+				<artifactId>apache-rat-plugin</artifactId>
+				<version>0.11</version>
+				<configuration>
+					<licenses>
+						<license
+							implementation="org.apache.rat.analysis.license.SimplePatternBasedLicense">
+							<licenseFamilyCategory>Lab10</licenseFamilyCategory>
+							<licenseFamilyName>Sandeep Salla License</licenseFamilyName>
+							<notes></notes>
+							<patterns>
+								<pattern>Sandeep Salla License</pattern>
+							</patterns>
+						</license>
+					</licenses>
+					<licenseFamilies>
+						<licenseFamily implementation="org.apache.rat.license.SimpleLicenseFamily">
+							<familyName>Sandeep Salla License</familyName>
+						</licenseFamily>
+					</licenseFamilies>
+					<excludes>
+						<exclude>pom.xml</exclude>
+						<exclude>**/*.properties</exclude>
+						<exclude>README.md</exclude>
+						<exclude>reports</exclude>						
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
